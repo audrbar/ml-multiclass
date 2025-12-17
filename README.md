@@ -17,12 +17,11 @@ Multi-label classification is highly applicable in diverse scenarios where insta
 `Image Classification with Multiple Labels`: Identifying and labeling multiple objects or features within an image, like recognizing both "cat" and "outdoor" in a photograph.
 Model Training Techniques:
 #### Training models for multi-label classification
-`Sigmoid Activation`: In the output layer of the neural network, sigmoid activation is often used. Unlike `softmax` in multiclass scenarios, sigmoid independently activates each output node, producing a value between 0 and 1, representing the likelihood of the corresponding label being present.
-`Binary Cross-Entropy Loss`: This loss function is employed during training to measure the dissimilarity between the predicted probabilities and the actual presence or absence of each label. It guides the model to minimize errors in its multi-label predictions.
+In the output layer of the neural network `Sigmoid Activation` function is often used. Unlike `softmax` in multiclass scenarios, sigmoid independently activates each output node, producing a value between 0 and 1, representing the likelihood of the corresponding label being present. `Binary Cross-Entropy Loss` function is employed during training to measure the dissimilarity between the predicted probabilities and the actual presence or absence of each label. It guides the model to minimize errors in its multi-label predictions.
 #### Evaluation Metrics
-Assessing the performance of a multi-label classification model requires specific metrics tailored to handle the complexity of multiple labels per instance:
-`Hamming Loss`: This metric calculates the fraction of labels that are incorrectly predicted. It provides a comprehensive measure of overall model performance in terms of label accuracy.
-`Precision at k`: Precision at k evaluates the precision of the top-k predicted labels, recognizing that not all labels need to be considered. It accounts for scenarios where only the most relevant labels are of interest.
+Assessing the performance of a multi-label classification model requires specific metrics tailored to handle the complexity of multiple labels per instance: \
+`Hamming Loss`: This metric calculates the fraction of labels that are incorrectly predicted. It provides a comprehensive measure of overall model performance in terms of label accuracy. \
+`Precision at k`: Precision at k evaluates the precision of the top-k predicted labels, recognizing that not all labels need to be considered. It accounts for scenarios where only the most relevant labels are of interest. \
 `Recall at k`: Similar to precision at k, recall at k assesses the recall of the top-k predicted labels. It focuses on capturing the relevant labels among the top predictions.
 ### Choosing Between Multi-Class and Multi-Label Classification
 When embarking on a classification task, one of the foundational decisions is whether to opt for multi-class or multi-label classification, and this choice significantly influences the model's performance and relevance to real-world scenarios.
