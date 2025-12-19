@@ -33,7 +33,7 @@ if df is not None:
     # print(f"\nFound {len(distinct_items)} distinct items")
 
     # Show all columns' unique counts (sorted by highest first)
-    print_unique_values_count(df)
+    # print_unique_values_count(df)
 
     # # Print them nicely with counts
     # print_distinct_values_from_csv_column(df, 'ix_rdo_docs_chief_executors.ORG_NAME as Pagrindinis vykdytojas')
