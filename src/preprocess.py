@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 import logging
-from utils import adjust_pandas_display, load_csv, load_excel, write_csv, print_column_value_counts, print_distinct_values_from_csv_column, get_distinct_values_from_csv_column, print_dataframe_characteristics, DATA_DIR
+from utils import adjust_pandas_display, load_csv, load_excel, print_unique_values_count, write_csv, print_column_value_counts, print_distinct_values_from_csv_column, get_distinct_values_from_csv_column, print_dataframe_characteristics, DATA_DIR
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -32,8 +32,12 @@ if df is not None:
     # distinct_items = get_distinct_values_from_csv_column(df, 'ix_rdo_docs_chief_executors.ORG_NAME as Pagrindinis vykdytojas')
     # print(f"\nFound {len(distinct_items)} distinct items")
 
+    # Show all columns' unique counts (sorted by highest first)
+    print_unique_values_count(df)
+
     # # Print them nicely with counts
-    print_distinct_values_from_csv_column(df, 'ix_rdo_docs_chief_executors.ORG_NAME as Pagrindinis vykdytojas')
+    # print_distinct_values_from_csv_column(df, 'ix_rdo_docs_chief_executors.ORG_NAME as Pagrindinis vykdytojas')
+    # print_distinct_values_from_csv_column(df, 'ix_tdo_docs.chief_executor as VISI VYKDYTOJAI', limit=250)
     # print_distinct_values_from_csv_column(df, 'ix_rdo_docs.TITLE')
 else:
     print("Error: Could not load data!")

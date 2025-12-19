@@ -116,7 +116,7 @@ def get_distinct_values_from_csv_column(data_frame, column_name, strip_whitespac
 
     return value_counts
 
-def print_distinct_values_from_csv_column(data_frame, column_name, strip_whitespace=True, sort_by='count'):
+def print_distinct_values_from_csv_column(data_frame, column_name, strip_whitespace=True, sort_by='count', limit=None):
     """
     Print distinct values from a column containing comma-separated strings with appearance counts.
 
@@ -125,6 +125,7 @@ def print_distinct_values_from_csv_column(data_frame, column_name, strip_whitesp
         column_name (str): Name of the column containing comma-separated values
         strip_whitespace (bool): Whether to strip whitespace from each value (default: True)
         sort_by (str): Sort order - 'count' (descending) or 'name' (alphabetical, default: 'count')
+        limit (int): Maximum number of items to display (default: None, shows all)
     """
     value_counts = get_distinct_values_from_csv_column(data_frame, column_name, strip_whitespace)
 
@@ -135,7 +136,7 @@ def print_distinct_values_from_csv_column(data_frame, column_name, strip_whitesp
     print(f"\n{'='*80}")
     print(f"DISTINCT VALUES FROM COLUMN: {column_name}")
     print(f"{'='*80}")
-    print(f"Total distinct values: {len(value_counts)}\n")
+    print(f"Total distinct values: {len(value_counts)}")
 
     # Sort based on preference
     if sort_by.lower() == 'count':
@@ -143,8 +144,17 @@ def print_distinct_values_from_csv_column(data_frame, column_name, strip_whitesp
     else:  # sort by name
         sorted_values = sorted(value_counts.items(), key=lambda x: x[0])
 
-    for i, (value, count) in enumerate(sorted_values, 1):
-        print(f"{i}. {value:<50} | Count: {count}")
+    # Limit the display if specified
+    display_values = sorted_values[:limit] if limit else sorted_values
+
+    print(f"Displaying: {len(display_values)}\n")
+
+    for i, (value, count) in enumerate(display_values, 1):
+        print(f"{i:>3}. {value:<50} | Count: {count:>8,}")
+
+    # Show info if results were limited
+    if limit and len(sorted_values) > limit:
+        print(f"\n... and {len(sorted_values) - limit} more items (set limit=None to see all)")
 
 def print_dataframe_characteristics(data_frame):
     """
@@ -190,5 +200,34 @@ def print_dataframe_characteristics(data_frame):
         missing_pct = missing_percent[col]
         status = "✓" if missing_count == 0 else "✗"
         print(f"  {status} {col:<68} | {values_count:>7,} | {missing_count:>7} | {missing_pct:>5.1f}%")
+
+    print(f"\n{'='*80}\n")
+
+def print_unique_values_count(data_frame, limit=None):
+    """
+    Print count of unique values for all columns in a dataframe.
+
+    Args:
+        data_frame (pd.DataFrame): The dataframe to analyze
+        limit (int): Maximum number of columns to display (default: None, shows all)
+    """
+    print(f"\n{'='*80}")
+    print("UNIQUE VALUES COUNT PER COLUMN")
+    print(f"{'='*80}\n")
+
+    unique_counts = data_frame.nunique()
+
+    # Limit display if specified
+    display_unique = unique_counts[:limit] if limit else unique_counts
+
+    print(f"  {'Column Name':<70} | Unique Count")
+    print(f"  {'-'*70}-+--------------")
+
+    for i, (col, count) in enumerate(display_unique.items(), 1):
+        print(f"  {i:>3}. {col:<66} | {count:>12,}")
+
+    # Show info if results were limited
+    if limit and len(unique_counts) > limit:
+        print(f"\n... and {len(unique_counts) - limit} more columns (set limit=None to see all)")
 
     print(f"\n{'='*80}\n")
